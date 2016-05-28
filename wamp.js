@@ -287,7 +287,6 @@
     };
 
     WampClient.prototype._wsClosedHandler = function (closeEvent) {
-        console.log(closeEvent);
         var self = this;
         self._eventHandlers = {};
         self._subscribedHandlers = {};
