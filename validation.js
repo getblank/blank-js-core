@@ -91,10 +91,8 @@ function validateType(storeName, propName, type, value, propDesc) {
             typeError = typeof value !== "boolean";
             break;
         case propertyTypes.string:
-            typeError = typeof value !== "string";
-            break;
         case propertyTypes.password:
-            typeError = typeof (value) !== "string" && typeof value !== "object" && (!value.key || !value.salt);
+            typeError = typeof value !== "string";
             break;
         case propertyTypes.date:
             typeError = (typeof value !== "string" || !value.match(iso8601)) && !(value instanceof Date);
@@ -341,7 +339,7 @@ export default class validation {
 
         const validator = new Validator(baseValidators[validatorName].type, baseValidators[validatorName].message);
         if (typeof validatorDesc === "object") {
-            validator.__expression = validatorDesc.expression;
+            validator.__expression = validatorDesc.expression || validatorDesc.__expression; // TODO: to figure out why this here
             if (validatorDesc.message) {
                 validator.message = validatorDesc.message;
             }
